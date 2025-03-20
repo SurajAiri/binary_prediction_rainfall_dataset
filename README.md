@@ -13,7 +13,7 @@ A machine learning project template
 
 1. Clone this repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/SurajAiri/binary_prediction_rainfall_dataset
 cd binary_prediction_rainfall_dataset
 ```
 
