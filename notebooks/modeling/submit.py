@@ -3,7 +3,7 @@ import joblib
 import os
 
 DATA_PATH = "data/raw/test.csv"
-MODEL_PATH = "artifacts/models/ensemble.pkl"
+MODEL_PATH = "artifacts/models/logistic_regression.pkl"
 SAVE_DIR = "artifacts/predictions/"
 SAVE_PATH = os.path.join(SAVE_DIR,"prediction.csv")
 
@@ -18,10 +18,10 @@ def main():
     model = joblib.load(MODEL_PATH)
 
     # Make predictions
-    y_pred = model.predict(data)
+    y_pred = model.predict_proba(data)
 
     # Save the predictions
-    pd.DataFrame(y_pred, columns=["rainfall"], index=data.index).to_csv(SAVE_PATH)
+    pd.DataFrame(y_pred[:,1], columns=["rainfall"], index=data.index).to_csv(SAVE_PATH)
 
     print("Predictions saved to", SAVE_PATH)
 

@@ -23,8 +23,8 @@ SAVE_DIR = "artifacts/models/"
 
 # Load the dataset
 data = pd.read_csv(TRAIN_PATH)
-# X = data.drop('rainfall', axis=1)
-X = data.drop(columns=[ "mintemp", "dewpoint","pressure",'maxtemp','rainfall'])
+X = data.drop('rainfall', axis=1)
+# X = data.drop(columns=[ "mintemp", "dewpoint","pressure",'maxtemp','rainfall'])
 y = data['rainfall']
 
 
@@ -46,7 +46,7 @@ def train_model(model, X, y):
     # create a pipeline
     pipeline = Pipeline([
         ('imputer', SimpleImputer(strategy='median')),
-        ('power_transform', PowerTransformer(method='box-cox')),
+        ('power_transform', PowerTransformer(method='yeo-johnson')),
         ('scaler', StandardScaler()),
         ('classifier', model)
     ])

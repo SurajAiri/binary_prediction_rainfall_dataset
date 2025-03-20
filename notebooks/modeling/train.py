@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import PowerTransformer, StandardScaler
 from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import cross_val_predict, cross_val_score
@@ -36,9 +37,11 @@ def main_cv():
 
     # Define the pipeline with preprocessing and model steps
     pipeline = Pipeline([
-        ('imputer', SimpleImputer(strategy='mean')),
+        ('imputer', SimpleImputer(strategy='median')),
+        ('power_transform', PowerTransformer(method='yeo-johnson')),
         ('scaler', StandardScaler()),
-        ('classifier', XGBClassifier(random_state=42))
+        # ('classifier', XGBClassifier(random_state=42))
+        ('classifier',LogisticRegression(max_iter=1000, random_state=42))
     ])
 
     # Get predicted probabilities using cross-validation
