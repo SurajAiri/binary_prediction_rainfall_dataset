@@ -1,45 +1,16 @@
-[build-system]
-requires = ["setuptools>=42", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "binary_prediction_rainfall_dataset"
+name = "binary-prediction-rainfall-dataset"
 version = "0.1.0"
-description = "A machine learning project template"
+description = "Add your description here"
 readme = "README.md"
-authors = [
-    {name = "Suraj Airi", email = "surajairi.ml@gmail.com"}
-]
-license = {text = "MIT"}
 requires-python = ">=3.12"
 dependencies = [
-    "numpy",
-    "pandas",
-    "scikit-learn",
-    "matplotlib",
-    "jupyter",
+    "catboost>=1.2.7",
+    "jupyter>=1.1.1",
+    "lightgbm>=4.6.0",
+    "matplotlib>=3.10.1",
+    "pandas>=2.2.3",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "xgboost>=3.0.0",
 ]
-
-[project.optional-dependencies]
-dev = [
-    "pytest",
-    "black",
-    "isort",
-    "flake8",
-    "mypy",
-]
-
-[tool.black]
-line-length = 88
-target-version = ["py312"]
-
-[tool.isort]
-profile = "black"
-line_length = 88
-
-[tool.mypy]
-python_version = "3.12"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
