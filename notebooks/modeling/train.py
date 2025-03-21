@@ -24,14 +24,19 @@ os.makedirs(MODEL_DIR, exist_ok=True)
 # Main function using cross validation
 def main_cv():
     # Load the dataset
-    data = pd.read_csv(DATA_PATH, index_col=0)
+    df = pd.read_csv(DATA_PATH, index_col=0)
 
     # data.drop(["temparature", "mintemp", "dewpoint","pressure","humidity"], axis=1, inplace=True)
 
-    X = data.drop('rainfall', axis=1)
-    y = data['rainfall']
+    # Feature Engineering
+    df['temp_range'] = df['maxtemp'] - df['mintemp']
+    df['humidity_dewpoint_ratio'] = df['humidity'] / df['dewpoint']
+    df['cloud_sunshine_ratio'] = df['cloud'] / (df['sunshine']+0.0000001)
 
-    print(f"Dataset shape: {data.shape}")
+    X = df.drop('rainfall', axis=1)
+    y = df['rainfall']
+
+    print(f"Dataset shape: {df.shape}")
     print(f"Features: {X.columns.tolist()}")
     print(f"Target distribution: {y.value_counts(normalize=True)}")
 
@@ -40,8 +45,8 @@ def main_cv():
         ('imputer', SimpleImputer(strategy='median')),
         ('power_transform', PowerTransformer(method='yeo-johnson')),
         ('scaler', StandardScaler()),
-        # ('classifier', XGBClassifier(random_state=42))
-        ('classifier',LogisticRegression(max_iter=1000, random_state=42))
+        ('classifier', XGBClassifier(random_state=42))
+        # ('classifier',LogisticRegression(max_iter=1000, random_state=42))
     ])
 
     # Get predicted probabilities using cross-validation
